@@ -22,11 +22,16 @@
       ga('create', 'UA-50437723-1', 'kloutometer.herokuapp.com');
       ga('send', 'pageview');
     </script>
+
+    {% block extra_scripts %}
+    {% endblock %}
 </head>
 
 <body>
+<div id="page-wrap">
 {% block badass_content %}
 {% endblock %}
+</div>
 
 
   <div id="foot">
@@ -34,10 +39,10 @@
   </div>
 
 
-</body>
 
 <script>
 {% block scripts %}
 {% endblock %}
 </script>
+</body>
 </html>

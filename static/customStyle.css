@@ -19,6 +19,10 @@ p a:hover {
   color:#ecf0f1;
 }
 
+#page-wrap {
+  min-height:100%;
+  margin-bottom:-50px;
+}
 
 .title-wrap h1 {
   background-color:#34495e;
@@ -78,9 +82,7 @@ p a:hover {
 }
 
 #foot {
-  position:absolute;
-  bottom:20px;
-  left: 20px;
+  height:50px;
   font-size:0.5em;
   color:#34495e;
 }

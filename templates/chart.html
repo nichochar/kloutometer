@@ -1,45 +1,33 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Kloutometer</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Custom style -->
-        <link href="{{ url_for('static', filename='customStyle.css') }}" rel="stylsheet" media="screen">
-        <!-- Bootstrap -->
-        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-    </head>
-    <body>
-        <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+{% extends "layout.html" %}
 
-
-        <!-- HighCharts stuff -->
+{% block extra_scripts %}
+<!-- HighCharts stuff -->
         <script src="http://code.highcharts.com/highcharts.js"></script>
         <script src="http://code.highcharts.com/modules/exporting.js"></script>
+{% endblock %}
 
 
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                </div>
-            </div>
-        </div>
+{% block badass_content %}
+<p>
+<a href="{{ url_for('menu') }}">Home</a>
+</p>
+        <div id="container" style="min-width: 500px; margin: 80px 200px"></div>
 
-        <div id="container" style="min-width: 500px; margin: 200px 200px"></div>
+{% endblock %}
 
-    </body>
+{% block scripts %}
 
-    <script>
-
-    var raw_data = {{ json_data|safe }};
-    var filling_data = []
-    for (var key in raw_data) {
-      filling_data.push(['@' + key, Math.round(raw_data[key])])
-    }
 
 
     // Now draw the chart, using the data we fetched
-    $(function () {
+    $(document).ready(function () {
+
+            var raw_data = {{ json_data|safe }};
+            var filling_data = []
+            for (var key in raw_data) {
+              filling_data.push(['@' + key, Math.round(raw_data[key])])
+            }
+
             $('#container').highcharts({
                 chart: {
                     type: 'column',
@@ -91,7 +79,7 @@
                         }
                     }
                 }]
-            });
+              });
         });
 
     // Apply a theme
@@ -197,5 +185,5 @@
 
     // Apply the theme
     Highcharts.setOptions(Highcharts.theme);
-    </script>
-</html>
+
+{% endblock %}
