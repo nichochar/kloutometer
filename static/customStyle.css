@@ -1,3 +1,7 @@
+html, body {
+  height:100%;
+}
+
 body {
   background-color:#e74c3c;
   color:#ecf0f1;
@@ -6,7 +10,7 @@ body {
 }
 
 p {
-  margin: 60px;
+  margin: 0 60px ;
   font-size:1.5em;
 }
 
@@ -22,6 +26,11 @@ p a:hover {
 #page-wrap {
   min-height:100%;
   margin-bottom:-50px;
+}
+
+#page-wrap:after {
+  content: "";
+  display: block;
 }
 
 .title-wrap h1 {
@@ -69,7 +78,7 @@ p a:hover {
 #submit, #addMore {
   background-color: #34495e;
   color:#ecf0f1;
-  margin:200px auto;
+  margin:100px auto;
   padding:10px 40px;
   font-size:3em;
   font-weight:bolder;
@@ -81,7 +90,7 @@ p a:hover {
 
 }
 
-#foot {
+#foot, #page-wrap:after {
   height:50px;
   font-size:0.5em;
   color:#34495e;
