@@ -2,16 +2,10 @@ import os
 import json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
         render_template, flash
-from flask_wtf import Form
-from wtforms import TextField
-from wtforms.validators import DataRequired
 
 from klout import KloutHTTPError
 from utils import get_klout_score
 
-# Define the form
-class userListForm(Form):
-    twitter_handle = TextField('twitter_handle', validators=[DataRequired()])
 
 # Create app
 app = Flask(__name__)
@@ -21,24 +15,13 @@ app.config.from_object(__name__)
 app.config.update(dict(
     DEBUG=True,
     SECRET_KEY='pipicaca',
-    USERNAME='admin',
-    PASSWORD='admin'
     ))
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
 @app.route('/', methods=['GET','POST'])
 def menu():
-    form = userListForm()
-    if form.validate_on_submit():
-        twitter_handle = form.data['twitter_handle']
-        return redirect('/success')
-
-    return render_template('menu.html', form=form)
-
-@app.route('/success')
-def success():
-    return "It worked"
+    return render_template('menu.html')
 
 @app.route('/chart')
 def show_chart():
@@ -65,7 +48,7 @@ def show_chart():
         return render_template('chart.html', json_data=json_data)
 
     else:
-        return False
+        return render_template('error.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
