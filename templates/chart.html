@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kloutometer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Custom style -->
+        <link href="{{ url_for('static', filename='customStyle.css') }}" rel="stylsheet" media="screen">
+        <!-- Bootstrap -->
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+
+        <!-- HighCharts stuff -->
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                </div>
+            </div>
+        </div>
+
+        <div id="container" style="min-width: 500px; margin: 200px 200px"></div>
+
+    </body>
+
+    <script>
+
+    var raw_data = {{ json_data|safe }};
+    var filling_data = []
+    for (var key in raw_data) {
+      filling_data.push(['@' + key, Math.round(raw_data[key])])
+    }
+
+
+    // Now draw the chart, using the data we fetched
+    $(function () {
+            $('#container').highcharts({
+                chart: {
+                    type: 'column',
+                    height: 600
+                },
+                title: {
+                    text: 'Klout Scores!'
+                },
+                subtitle: {
+                    text: 'Source: Klout'
+                },
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        rotation: -45,
+                        align: 'right',
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Klout-O-Score'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Score: <b>{point.y:.f} bullshitz</b>',
+                },
+                series: [{
+                    name: 'Klout-o-Score',
+                    data: filling_data,
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        x: 4,
+                        y: 20,
+                        style: {
+                            fontSize: '17px',
+                            fontFamily: 'Verdana, sans-serif',
+                            textShadow: '0 0 3px black'
+                        }
+                    }
+                }]
+            });
+        });
+
+    // Apply a theme
+    /**
+     * Sand-Signika theme for Highcharts JS
+     * @author Torstein Honsi
+     */
+
+    // Load the fonts
+    Highcharts.createElement('link', {
+       href: 'http://fonts.googleapis.com/css?family=Signika:400,700',
+       rel: 'stylesheet',
+       type: 'text/css'
+    }, null, document.getElementsByTagName('head')[0]);
+
+    // Add the background image to the container
+    Highcharts.wrap(Highcharts.Chart.prototype, 'getContainer', function (proceed) {
+       proceed.call(this);
+       this.container.style.background = 'url(http://www.highcharts.com/samples/graphics/sand.png)';
+    });
+
+
+    Highcharts.theme = {
+       colors: ["#f45b5b", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+          "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+       chart: {
+          backgroundColor: null,
+          style: {
+             fontFamily: "Signika, serif"
+          }
+       },
+       title: {
+          style: {
+             color: 'black',
+             fontSize: '16px',
+             fontWeight: 'bold'
+          }
+       },
+       subtitle: {
+          style: {
+             color: 'black'
+          }
+       },
+       tooltip: {
+          borderWidth: 0
+       },
+       legend: {
+          itemStyle: {
+             fontWeight: 'bold',
+             fontSize: '13px'
+          }
+       },
+       xAxis: {
+          labels: {
+             style: {
+                color: '#6e6e70',
+                fontWeight: 'bold'
+             }
+          }
+       },
+       yAxis: {
+          labels: {
+             style: {
+                color: '#6e6e70'
+             }
+          }
+       },
+       plotOptions: {
+          series: {
+             shadow: true
+          },
+          candlestick: {
+             lineColor: '#404048'
+          }
+       },
+
+       // Highstock specific
+       navigator: {
+          xAxis: {
+             gridLineColor: '#D0D0D8'
+          }
+       },
+       rangeSelector: {
+          buttonTheme: {
+             fill: 'white',
+             stroke: '#C0C0C8',
+             'stroke-width': 1,
+             states: {
+                select: {
+                   fill: '#D0D0D8'
+                }
+             }
+          }
+       },
+       scrollbar: {
+          trackBorderColor: '#C0C0C8'
+       },
+
+       // General
+       background2: '#E0E0E8'
+       
+    };
+
+    // Apply the theme
+    Highcharts.setOptions(Highcharts.theme);
+    </script>
+</html>

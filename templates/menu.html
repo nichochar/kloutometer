@@ -1,0 +1,111 @@
+{%extends "layout.html" %}
+
+{% block badass_content %}
+  <div class="grid" >
+    <div class="col-9-12 push-right">
+      <div class="content">
+        <div class="title-wrap">
+          <h1>Klout-O-Meter</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-1-3">
+      <div class="content">
+        <h2>1. Input twitter handles</h2>
+        </br>
+        <div class="twitter-inputs">
+
+          @<input type="text" class="twtr_handle" name="1" />
+          </br>
+          @<input type="text" class="twtr_handle" name="2" />
+          </br>
+          @<input type="text" class="twtr_handle" name="3" />
+          </br>
+          @<input type="text" class="twtr_handle" name="4" />
+          </br>
+          @<input type="text" class="twtr_handle" name="5" />
+          </br>
+          @<input type="text" class="twtr_handle" name="6" />
+          </br>
+          @<input type="text" class="twtr_handle" name="7" />
+          </br>
+          @<input type="text" class="twtr_handle" name="8" />
+          </br>
+          @<input type="text" class="twtr_handle" name="9" />
+          </br>
+          @<input type="text" class="twtr_handle" name="10" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-1-3">
+      <div class="content">
+        <h2>2. Add more?</h2>
+        </br>
+        <button id="addMore">More?</button>
+        <div class="twitter-inputs hidden">
+
+          @<input type="text" class="twtr_handle" name="11" />
+          </br>
+          @<input type="text" class="twtr_handle" name="12" />
+          </br>
+          @<input type="text" class="twtr_handle" name="13" />
+          </br>
+          @<input type="text" class="twtr_handle" name="14" />
+          </br>
+          @<input type="text" class="twtr_handle" name="15" />
+          </br>
+          @<input type="text" class="twtr_handle" name="16" />
+          </br>
+          @<input type="text" class="twtr_handle" name="17" />
+          </br>
+          @<input type="text" class="twtr_handle" name="18" />
+          </br>
+          @<input type="text" class="twtr_handle" name="19" />
+          </br>
+          @<input type="text" class="twtr_handle" name="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-1-3">
+      <div class="content">
+    <h2>3. And you're done!</h2>
+    </br>
+          <input id="submit" type="submit" class="pure-button" value="Go">
+      </div>
+    </div>
+
+
+  </div>
+
+  {% endblock %}
+
+
+
+  {% block scripts %}
+$("#submit").bind("click", function() {
+    vars = "";
+    $(".twtr_handle").each(function(index, value) {
+      if (value.value > ""){
+      if (index == 0){
+        vars = value.value;
+        }
+      else {
+        vars += ',' + value.value;
+        }
+      }
+    });
+    url_string = "{{ url_for('show_chart') }}" + "?handles=" + vars
+    window.location.replace(url_string);
+    });
+
+$("#addMore").bind("click", function() {
+    $("#addMore").hide();
+    $(".hidden").show();
+    });
+
+ {% endblock %}
