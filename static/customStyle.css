@@ -10,7 +10,7 @@ body {
 }
 
 p {
-  margin: 0 60px ;
+  margin: 0px 60px ;
   font-size:1.5em;
 }
 
@@ -43,6 +43,15 @@ p a:hover {
   font-family: "Helvetica Black", "Arial";
 }
 
+.title-wrap h1::selection {
+  color:#34495e;
+  background-color:#ecf0f1;
+}
+
+#home-btn {
+  padding-top: 30px;
+}
+
 .content {
   text-align:center;
 }
@@ -54,6 +63,12 @@ p a:hover {
 .content h2 {
   font-size:1.5em;
 }
+
+.content h2::selection {
+  background-color:#e74c3c;
+  color:#ecf0f1;
+}
+
 .twitter-inputs > .twtr_handle {
   border:2px solid #e74c3c;
   background-color:#ecf0f1;
@@ -96,9 +111,18 @@ p a:hover {
   color:#34495e;
 }
 
+#foot p::selection {
+  background-color:#ecf0f1;
+  color:#e74c3c;
+}
+
 #foot a {
   color:#95a5a6;
   text-decoration: none;
+}
+#foot a::selection {
+  background-color:#e74c3c;
+  color:#ecf0f1;
 }
 
 #foot a:hover {
