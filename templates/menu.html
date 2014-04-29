@@ -18,7 +18,7 @@
         </br>
         <div class="twitter-inputs">
 
-          @<input type="text" class="twtr_handle" name="1" />
+          @<input id="first-input" type="text" class="twtr_handle" name="1" />
           </br>
           @<input type="text" class="twtr_handle" name="2" />
           </br>
@@ -91,5 +91,13 @@ $("#addMore").bind("click", function() {
     $("#addMore").hide();
     $(".hidden").show();
     });
+
+
+    // Select the first input tag
+    $(document).ready(function () {
+      $("#first-input").select();
+      });
+
+
 
  {% endblock %}
